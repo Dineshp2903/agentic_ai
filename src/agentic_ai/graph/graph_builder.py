@@ -20,7 +20,7 @@ class GraphBuilder:
         Create a basic chatbot node
         """
         self.chatbot_node = BasicChatBotNode(self.llm)
-        self.chatbot_node.add_node("chatbot",self.chatbot_node.process)
+        self.graph_builder.add_node("chatbot",self.chatbot_node.process)
         self.graph_builder.add_edge(START,"chatbot")
         self.graph_builder.add_edge("chatbot",END)
 

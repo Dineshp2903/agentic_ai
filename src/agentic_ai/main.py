@@ -44,6 +44,7 @@ def load_agenticai_app():
             graph_builder = GraphBuilder(model)
             try:
                 graph = graph_builder.setup_graph(use_case)
+                DisplayResultStreamlit(usecase=use_case,graph=graph,user_message=user_message).display_result_on_ui()
             except Exception as e:
                 st.error(f"Error in setting up the graph {e}")
                 return
