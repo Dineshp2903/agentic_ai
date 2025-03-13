@@ -18,7 +18,8 @@ class GroqChat:
                 st.error("Please enter the GROQ API Key")
 
             llm = ChatGroq(groq_api_key,groq_model)
+            print("LLM Model Loaded")
             return llm
         except Exception as e:
-            raise ValueError("Error in getting the LLM model")
+            raise ValueError(f"Error in getting the LLM model")
         return llm
