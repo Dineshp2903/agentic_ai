@@ -3,8 +3,10 @@ import os
 import datetime as date
 
 from langchain_core.messages import AIMessage,HumanMessage
+from src.agentic_ai.doc_loader import PDFLoader
 
 from src.agentic_ai.ui.uiconfigfile import Config
+from src.agentic_ai.constants import RAG_CHATBOT
 
 class LoadStreamlitUI:
 
@@ -56,8 +58,8 @@ class LoadStreamlitUI:
 
                 self.user_controls["GROQ_API_KEY"] = st.session_state["GROQ_API_KEY"]= st.text_input("Enter GROQ API Key",type="password")
 
-                if not self.user_controls["GROQ_API_KEY"]:
-                    st.warning("⚠️ Please enter your GROQ API key to proceed. Don't have? refer : https://console.groq.com/keys")
+                # if not self.user_controls["GROQ_API_KEY"]:
+                #     st.warning("⚠️ Please enter   your GROQ API key to proceed. Don't have? refer : https://console.groq.com/keys")
 
                 self.user_controls["selected_usecase"] = st.selectbox("Select Usecases", use_case_options)
                 print(self.user_controls["selected_usecase"])
@@ -69,6 +71,16 @@ class LoadStreamlitUI:
                     # Validate API key
                     if not self.user_controls["TAVILY_API_KEY"]:
                         st.warning("⚠️ Please enter your TAVILY_API_KEY key to proceed. Don't have? refer : https://app.tavily.com/home")
+
+                if self.user_controls["selected_usecase"] == RAG_CHATBOT:
+                    print("RAG Chatbot")
+                    
+                    uploaded_file = st.file_uploader("Choose a file", type=["csv", "txt", "pdf"])
+
+                    with open("temp.pdf", "wb") as f:
+                        f.write(uploaded_file.read())
+                    st.write("File Uploaded")
+                    PDFLoader().load("temp.pdf")
             
             
                     
